@@ -1,0 +1,35 @@
+CREATE DATABASE tdsmanha;
+
+USE tdsmanha;
+
+CREATE TABLE usuario(
+	idUsuario bigint NOT NULL AUTO_INCREMENT,
+ 	login varchar(20) NOT NULL,
+	senha varchar(12) NOT NULL,
+	tipo varchar(10) NOT NULL,
+	PRIMARY KEY(idUsuario)
+);
+
+INSERT INTO usuario(idUsuario, login, senha, tipo) VALUES
+(null, 'roberto', '123456', 'adm'),
+(null, 'joao', '789456', 'visitante'),
+(null, 'rosa', '123456', 'adm'),
+(null, 'jorge', '789456', 'visitante');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
