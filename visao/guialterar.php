@@ -66,8 +66,8 @@ if( isset($_SESSION['usuarios'])){
     <fieldset>
         <legend>Cadastro</legend>
             <label>Código: <input type="text" name="txtidusuario" id="txtidusuario" value="<?php ?>">*</label><br>
-            <label>Login: <input type="text" name="txtlogin" id="txtlogin" value="<?php ?>">*</label><br>
-            <label>Senha: <input type="text" name="txtsenha" id="txtsenha" value="<?php ?>">*</label><br>
+            <label>Login: <input type="text" name="txtlogin" id="txtlogin" value="<?php ?>"></label><br>
+            <label>Senha: <input type="text" name="txtsenha" id="txtsenha" value="<?php ?>"></label><br>
 			<label>Tipo: 
 				<select name="seltipo" id="seltipo">
 					<?php
@@ -79,7 +79,7 @@ if( isset($_SESSION['usuarios'])){
 							echo '<option value="adm">adm</option>';
 						}
 
-						unset($_SESSION['usuarios']);
+						unset($_SESSION['u']);
 					?>
 				</select>
 			</label><br>

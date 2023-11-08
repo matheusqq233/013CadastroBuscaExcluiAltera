@@ -50,6 +50,7 @@
                         $uDAO->cadastrarUsuario($u);
 
                         $_SESSION['u']=serialize($u);
+                        $_SESSION['msg'] = 'Usuário' . $u->login .'cadastrado com sucesso!';
 
                         header("location:../visao/guiresposta.php");
                     }else{
@@ -180,49 +181,28 @@
         break;
         
         case 'confirmalterar':
-            if( isset($_POST['txtidusuario']) &&
-                isset($_POST['txtlogin']) &&
-                isset($_POST['txtsenha']) &&
-                isset($_POST['seltipo'])){
-
-                    $idUsuario = $_POST['txtidusuario'];
-                    $login = $_POST['txtlogin'];
-                    $senha = $_POST['txtsenha'];
-                    $tipo = $_POST['seltipo'];
-
-                    $erros = array();
-
-                    if(!Validacao::testarLogin($login) ){
-                        $erros[] = 'Login inválido!';
-                    }
-
-                    if(!Validacao::testarSenha($senha) ){
-                        $erros[] = 'Senha inválida!';
-                    }
-
-                    if(!Validacao::testarTipo($tipo) ){
-                        $erros[] = 'Tipo inválido!';
-                    }
-
-                    if(count($erros) == 0){
-                        $u = new Usuario();
-                        $u->idusuario = $idUsuario;
-                        $u->login = $login;
-                        $u->senha = $senha;
-                        $u->tipo = $tipo;
-
-                        $uDAO = new UsuarioDAO();
-                        $uDAO->alterarUsuario($u);
-                        $_SESSION['u'] = serialize($u);
-                        header('location:../controle/usuariocontrole.php?op=consultar');
-                    }else{
-                        $_SESSION['erros'] = serialize($erros);
-                        header('location:../visao/guierro.php');
-                    }
-
-                }else{
-                    echo 'Variáveis não existem!';
-                }
+            if (isset($_POST['txtidusuario']) && isset($_POST['txtlogin']) && isset($_POST['txtsenha']) && isset($_POST['seltipo'])) {
+                $idUsuario = $_POST['txtidusuario'];
+                $login = $_POST['txtlogin'];
+                $senha = $_POST['txtsenha'];
+                $tipo = $_POST['seltipo'];
+        
+                // Criar objeto Usuario com os dados do formulário
+                $usuario = new Usuario();
+                $usuario->idusuario = $idUsuario;
+                $usuario->login = $login;
+                $usuario->senha = $senha;
+                $usuario->tipo = $tipo;
+        
+                // Chamar a função para alterar o usuário na DAO
+                $uDAO = new UsuarioDAO();
+                $uDAO->alterarUsuario($usuario);
+        
+                // Redirecionar para a página de consulta ou outra página desejada
+                header('location:../controle/usuariocontrole.php?op=consultar');
+            } else {
+                echo 'Variáveis não existem!';
+            }
         break;
 
         default: echo 'Erro no switch';

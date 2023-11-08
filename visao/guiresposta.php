@@ -95,7 +95,7 @@ Released   : 20120915
 									<li><a href="../controle/usuariocontrole.php?op=consultar">Consultar</a></li>
 									<li><a href="guidelusuario.php">Excluir</a></li>
 									<li><a href="guibuscausuario.php">Busca Avançada</a></li>
-									<li><a href="visao/guialterar.php">Alterar</a></li>
+									<li><a href="guialterar.php">Alterar</a></li>
 									<li><a href="../controle/usuariocontrole.php?op=deslogar">Deslogar</a></li>
 								</ul>
 							</li>

@@ -82,19 +82,60 @@ class UsuarioDAO{
 
     public function alterarUsuario($usu){
         try{
-            $stat = $this->conexao->prepare('update usuario set login = ?, senha = ?, tipo = ? where idusuario = ?');
-            $stat->bindValue(1,$usu->login);
-            $stat->bindValue(2,$usu->senha);
-            $stat->bindValue(3,$usu->tipo);
-            $stat->bindValue(4,$usu->idusuario);
-
-            $stat->execute();
-
+            // Construa a consulta SQL base
+            $sql = 'update usuario set ';
+            $params = array();
+            $alteracoes = 0; // Contador de alterações
+    
+            // Verifica e adiciona login à consulta se não estiver vazio
+            if (!empty($usu->login)) {
+                $sql .= 'login = ?, ';
+                $params[] = $usu->login;
+                $alteracoes++;
+            }
+    
+            // Verifica e adiciona senha à consulta se não estiver vazio
+            if (!empty($usu->senha)) {
+                $sql .= 'senha = ?, ';
+                $params[] = $usu->senha;
+                $alteracoes++;
+            }
+    
+            // Verifica e adiciona tipo à consulta se não estiver vazio
+            if (!empty($usu->tipo)) {
+                $sql .= 'tipo = ?, ';
+                $params[] = $usu->tipo;
+                $alteracoes++;
+            }
+    
+            // Se houver pelo menos uma alteração, execute a consulta
+            if ($alteracoes > 0) {
+                // Remove a vírgula extra do final da consulta
+                $sql = rtrim($sql, ', ');
+    
+                // Adiciona a cláusula WHERE para identificar o usuário a ser atualizado
+                $sql .= ' where idusuario = ?';
+                $params[] = $usu->idusuario;
+    
+                // Prepara a consulta
+                $stat = $this->conexao->prepare($sql);
+    
+                // Atribui os valores aos parâmetros da consulta
+                foreach ($params as $key => $value) {
+                    $stat->bindValue($key + 1, $value);
+                }
+    
+                // Executa a consulta
+                $stat->execute();
+            }
+    
+            // Encerra a conexão
             $this->conexao = null;
-        }catch(PDOException $e){
+        } catch(PDOException $e) {
             echo 'Erro ao alterar usuário!';
         }
     }
+    
 
     
 
